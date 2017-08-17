@@ -55,14 +55,18 @@ public class AdminService {
         return accessTokenPostParameters;
     }
 
+    private static void populateLoggedInParameters(Map<String, Object> attributes, OauthConfiguration oauthConfiguration) {
+        attributes.put("loggedInToConnectedApp", true);
+        attributes.put("oauthConfigurationId", oauthConfiguration.id);
+        attributes.put("oauthConfigurationCode", oauthConfiguration.code);
+    }
+
     public static Map<String, Object> processRadiusAdmin(Request request, Response response) throws Exception {
         Map<String, Object> attributes = new HashMap<String, Object>();
         if( isLoggedIn() ) {
-            attributes.put("loggedInToConnectedApp", true);
             OauthConfiguration oauthConfiguration = DatabaseService.getOauthConfigurations().get(0);
             System.out.println(" processRadiusAdmin oauthConfiguration id " + oauthConfiguration.id + " code " + oauthConfiguration.code );
-            attributes.put("oauthConfigurationId", oauthConfiguration.id);
-            attributes.put("oauthConfigurationCode", oauthConfiguration.code);
+            populateLoggedInParameters( attributes, oauthConfiguration );
         } else {
             attributes.put("loggedInToConnectedApp", false);
             attributes.put("salesforceLoginURL", getSalesforceLoginURL() );
@@ -90,10 +94,9 @@ public class AdminService {
             oauthConfiguration.issued_at = (String) jsonResponse.get("issued_at");
             oauthConfiguration.token_id = (String) jsonResponse.get("id");
             oauthConfiguration.token_type = (String) jsonResponse.get("token_type");
+            DatabaseService.persistOauthConfiguration( oauthConfiguration );
         }
-        attributes.put("loggedInToConnectedApp", true);
-        attributes.put("oauthConfigurationId", oauthConfiguration.id);
-        attributes.put("oauthConfigurationCode", oauthConfiguration.code);
+        populateLoggedInParameters( attributes, oauthConfiguration );
         return attributes;
     }
 
