@@ -14,12 +14,13 @@ public class EnvironmentService {
         if( environmentMap == null ) {
             environmentMap = new HashMap<String, String>();
             if( System.getenv().containsKey("DYNO") ) {
-                // we are in heroku environment
+                System.out.println(" getEnvironmentMap: we are in heroku environment ");
                 return System.getenv();
             } else if( System.getenv().containsKey("ENV_FILE") ) {
-                // we are in heroku local
+                System.out.println(" getEnvironmentMap: we are in heroku local ");
                 return System.getenv();
             } else {
+                System.out.println(" getEnvironmentMap : we are in java run ");
                 File f = new File(".env");
                 if(f.exists() && !f.isDirectory()) {
                     Properties properties = new Properties();
