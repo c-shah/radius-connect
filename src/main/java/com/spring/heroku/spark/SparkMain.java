@@ -7,6 +7,7 @@ import java.util.Map;
 
 import com.spring.heroku.services.AdminService;
 import com.spring.heroku.services.EnvironmentService;
+import com.spring.heroku.services.SOAPConnectService;
 import spark.ModelAndView;
 import spark.template.freemarker.FreeMarkerEngine;
 import static spark.Spark.get;
@@ -33,6 +34,11 @@ public class SparkMain {
                 output += "<br>" + envName + " \t " + env.get(envName);
             }
             return output;
+        });
+
+        get("/createAccount", (req, res) -> {
+            SOAPConnectService.createAccount1("https://dev2ot-dev-ed.my.salesforce.com/services/Soap/u/40.0",AdminService.getRefreshedAccessToken() );
+            return "created.";
         });
 
         get("/radius.admin", (request, response) -> {
