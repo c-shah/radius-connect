@@ -37,6 +37,8 @@ public class AdminService {
         Map<String, Object> attributes = new HashMap<String, Object>();
         if( isLoggedIn() ) {
             attributes.put("loggedInToConnectedApp", true);
+            OauthConfiguration oauthConfiguration = DatabaseService.getOauthConfigurations().get(0);
+            attributes.put("oauthConfiguration", oauthConfiguration);
         } else {
             attributes.put("loggedInToConnectedApp", false);
             attributes.put("salesforceLoginURL", getSalesforceLoginURL() );
@@ -54,7 +56,7 @@ public class AdminService {
         oauthConfiguration = DatabaseService.persistOauthConfiguration( oauthConfiguration );
         System.out.println(" oauthConfiguration " + oauthConfiguration.id );
         attributes.put("loggedInToConnectedApp", true);
-        attributes.put("oauthConfiguration.id", oauthConfiguration.id);
+        attributes.put("oauthConfiguration", oauthConfiguration);
         return attributes;
     }
 
