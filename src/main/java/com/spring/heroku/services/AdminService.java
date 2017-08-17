@@ -38,6 +38,7 @@ public class AdminService {
         if( isLoggedIn() ) {
             attributes.put("loggedInToConnectedApp", true);
             OauthConfiguration oauthConfiguration = DatabaseService.getOauthConfigurations().get(0);
+            System.out.println(" processRadiusAdmin oauthConfiguration id " + oauthConfiguration.id + " code " + oauthConfiguration.code );
             attributes.put("oauthConfigurationId", oauthConfiguration.id);
             attributes.put("oauthConfigurationCode", oauthConfiguration.code);
         } else {

@@ -1,14 +1,16 @@
 <#if loggedInToConnectedApp == true>
-
-    Radius Cloud : Currently Logged In
-
-    Oauth Configurtion
-        Id   : ${oauthConfigurationId}
-        Code : ${oauthConfigurationCode}
+    <br>
+    &nbsp; Radius Cloud : Currently Logged In
+    <br>
+    &nbsp; Oauth Configurtion
+    <br>
+        &nbsp;&nbsp; Id   : ${oauthConfigurationId}
+    <br>
+        &nbsp;&nbsp;Code : ${oauthConfigurationCode}
 
 <#else>
-
-    Radius Cloud : <a href="${salesforceLoginURL}">Login</a> to Salesforce
+    <br>
+    &nbsp;Radius Cloud : <a href="${salesforceLoginURL}">Login</a> to Salesforce
 
 </#if>
 
