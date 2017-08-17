@@ -144,7 +144,10 @@ public class AdminService {
             OauthConfiguration oauthConfiguration = DatabaseService.getOauthConfigurations().get(0);
             String jsonResponseString = HttpService.postRequest( getRefreshTokenURL(), getRefreshTokenPostParameters(oauthConfiguration) );
             Map<String, Object> jsonMap = FormatterService.formatJSON( jsonResponseString );
+            System.out.println(" getRefreshedAccessToken jsonMap " + jsonMap );
             return (String) jsonMap.get("access_token");
+        } else {
+            System.out.println(" getRefreshedAccessToken:  not logged in. ");
         }
         return null;
     }
