@@ -10,7 +10,8 @@ create table oauth_configuration (
         created timestamp default now() 
 );
 
+delete from oauth_configuration;
 
 select * from oauth_configuration
 
-insert into oauth_configuration ( code ) values ( ' test1 ' );
+insert into oauth_configuration ( code, issued_at, refresh_token, instance_url, signature, access_token  ) values ( ' test1 ' );

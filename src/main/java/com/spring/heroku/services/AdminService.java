@@ -33,6 +33,28 @@ public class AdminService {
         return loginURL;
     }
 
+    private static String getAccessTokenURL() throws Exception {
+        String accessTokenURL = EnvironmentService.getEnvironmentMap().get("SALESFORCE_TOKEN_URL");
+        return accessTokenURL;
+    }
+
+    private static Map<String, String> getAccessTokenPostParameters(OauthConfiguration oauthConfiguration) throws Exception {
+        String redirect_uri = EnvironmentService.getEnvironmentMap().get("REDIRECT_URI");
+        String client_id = EnvironmentService.getEnvironmentMap().get("CLIENT_ID");
+        String client_secret = EnvironmentService.getEnvironmentMap().get("CLIENT_SECRET");
+        String grant_type = EnvironmentService.getEnvironmentMap().get("GRANT_TYPE");
+        String code = oauthConfiguration.code;
+        String format = "json";
+        Map<String, String> accessTokenPostParameters = new HashMap<String, String>();
+        accessTokenPostParameters.put( "redirect_uri", redirect_uri );
+        accessTokenPostParameters.put( "client_id", client_id );
+        accessTokenPostParameters.put( "client_secret", client_secret );
+        accessTokenPostParameters.put( "grant_type", grant_type );
+        accessTokenPostParameters.put( "code", code );
+        accessTokenPostParameters.put( "format", format );
+        return accessTokenPostParameters;
+    }
+
     public static Map<String, Object> processRadiusAdmin(Request request, Response response) throws Exception {
         Map<String, Object> attributes = new HashMap<String, Object>();
         if( isLoggedIn() ) {
@@ -57,6 +79,8 @@ public class AdminService {
         oauthConfiguration.code = code;
         oauthConfiguration = DatabaseService.persistOauthConfiguration( oauthConfiguration );
         System.out.println(" oauthConfiguration persisted : " + oauthConfiguration.id );
+        String httpResponse = HttpService.postRequest( getAccessTokenURL(), getAccessTokenPostParameters(oauthConfiguration) );
+        System.out.println(" httpResponse " + httpResponse );
         attributes.put("loggedInToConnectedApp", true);
         attributes.put("oauthConfigurationId", oauthConfiguration.id);
         attributes.put("oauthConfigurationCode", oauthConfiguration.code);
@@ -67,5 +91,9 @@ public class AdminService {
         System.out.println(" isLoggedIn " + AdminService.isLoggedIn() );
         System.out.println(" getSalesforceLoginURL " + getSalesforceLoginURL() );
         System.out.println(" processRadiusAdmin " + processRadiusAdmin(null, null ) );
+        if( isLoggedIn() ) {
+            OauthConfiguration oauthConfiguration = DatabaseService.getOauthConfigurations().get(0);
+            HttpService.postRequest(getAccessTokenURL(), getAccessTokenPostParameters(oauthConfiguration) );
+        }
     }
 }
