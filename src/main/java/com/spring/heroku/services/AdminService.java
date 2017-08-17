@@ -81,6 +81,16 @@ public class AdminService {
         System.out.println(" oauthConfiguration persisted : " + oauthConfiguration.id );
         String httpResponse = HttpService.postRequest( getAccessTokenURL(), getAccessTokenPostParameters(oauthConfiguration) );
         System.out.println(" httpResponse " + httpResponse );
+        Map<String, Object> jsonResponse = FormatterService.formatJSON(httpResponse);
+        if( !jsonResponse.containsKey("error") ) {
+            oauthConfiguration.access_token = (String) jsonResponse.get("access_token");
+            oauthConfiguration.signature = (String) jsonResponse.get("signature");
+            oauthConfiguration.id_token = (String) jsonResponse.get("id_token");
+            oauthConfiguration.instance_url = (String) jsonResponse.get("instance_url");
+            oauthConfiguration.issued_at = (String) jsonResponse.get("issued_at");
+            oauthConfiguration.token_id = (String) jsonResponse.get("id");
+            oauthConfiguration.token_type = (String) jsonResponse.get("token_type");
+        }
         attributes.put("loggedInToConnectedApp", true);
         attributes.put("oauthConfigurationId", oauthConfiguration.id);
         attributes.put("oauthConfigurationCode", oauthConfiguration.code);
@@ -93,7 +103,8 @@ public class AdminService {
         System.out.println(" processRadiusAdmin " + processRadiusAdmin(null, null ) );
         if( isLoggedIn() ) {
             OauthConfiguration oauthConfiguration = DatabaseService.getOauthConfigurations().get(0);
-            HttpService.postRequest(getAccessTokenURL(), getAccessTokenPostParameters(oauthConfiguration) );
+            String response = HttpService.postRequest( getAccessTokenURL(), getAccessTokenPostParameters(oauthConfiguration) );
+            System.out.println( " response " + FormatterService.formatJSON( response ) );
         }
     }
 }

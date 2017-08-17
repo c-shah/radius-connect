@@ -34,7 +34,6 @@ public class HttpService {
             InputStream inputStream = entity.getContent();
             try {
                 theString = IOUtils.toString(inputStream, "UTF-8");
-                System.out.println( " theString " + theString );
             } finally {
                 inputStream.close();
             }

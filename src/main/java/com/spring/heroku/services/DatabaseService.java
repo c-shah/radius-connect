@@ -27,6 +27,9 @@ public class DatabaseService {
                 oauthConfiguration.instance_url = resultSet.getString("instance_url");
                 oauthConfiguration.signature = resultSet.getString("signature");
                 oauthConfiguration.access_token = resultSet.getString("access_token");
+                oauthConfiguration.id_token = resultSet.getString("id_token");
+                oauthConfiguration.token_id = resultSet.getString("token_id");
+                oauthConfiguration.token_type = resultSet.getString("token_type");
                 oauthConfigurations.add(oauthConfiguration);
             }
             return oauthConfigurations;
@@ -45,7 +48,7 @@ public class DatabaseService {
             if( oauthConfiguration.id != null ) {
                 statement.executeUpdate( " delete from oauth_configuration where id = " + oauthConfiguration.id );
             }
-            statement.executeUpdate(" insert into oauth_configuration ( code, issued_at, refresh_token, instance_url, signature, access_token  ) values ( '" + oauthConfiguration.code + "', '" + oauthConfiguration.issued_at + "', '" + oauthConfiguration.refresh_token + "', '" + oauthConfiguration.instance_url + "', '" + oauthConfiguration.signature + "','" + oauthConfiguration.access_token + "' ) ");
+            statement.executeUpdate(" insert into oauth_configuration ( code, issued_at, refresh_token, instance_url, signature, access_token, id_token, token_id, token_type  ) values ( '" + oauthConfiguration.code + "', '" + oauthConfiguration.issued_at + "', '" + oauthConfiguration.refresh_token + "', '" + oauthConfiguration.instance_url + "', '" + oauthConfiguration.signature + "','" + oauthConfiguration.access_token + "', '" + oauthConfiguration.id_token + "','" + oauthConfiguration.token_id + "','" + oauthConfiguration.token_type + "' ) ");
             ResultSet resultSet = statement.executeQuery("select * from oauth_configuration where code = '" + oauthConfiguration.code + "' ");
             while (resultSet != null && resultSet.next()) {
                 oauthConfiguration.id = resultSet.getString("id");
@@ -55,6 +58,9 @@ public class DatabaseService {
                 oauthConfiguration.instance_url = resultSet.getString("instance_url");
                 oauthConfiguration.signature = resultSet.getString("signature");
                 oauthConfiguration.access_token = resultSet.getString("access_token");
+                oauthConfiguration.id_token = resultSet.getString("id_token");
+                oauthConfiguration.token_id = resultSet.getString("token_id");
+                oauthConfiguration.token_type = resultSet.getString("token_type");
             }
             return oauthConfiguration;
         } finally {
