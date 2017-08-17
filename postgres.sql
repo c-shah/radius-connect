@@ -1,3 +1,4 @@
+drop table oauth_configuration;
 create sequence oauth_configuration_seq START 101;
 create table oauth_configuration ( 
         id integer default nextval('oauth_configuration_seq'), 
@@ -7,6 +8,9 @@ create table oauth_configuration (
         instance_url varchar(200), 
         signature varchar(200), 
         access_token varchar(200), 
+        id_token varchar(4000),
+        token_id varchar(200),
+        token_type varchar(200),
         created timestamp default now() 
 );
 

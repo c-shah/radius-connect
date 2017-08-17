@@ -55,6 +55,26 @@ public class AdminService {
         return accessTokenPostParameters;
     }
 
+    private static String getRefreshTokenURL() throws Exception {
+        String refreshTokenURL = EnvironmentService.getEnvironmentMap().get("SALESFORCE_TOKEN_URL");
+        return refreshTokenURL;
+    }
+
+    private static Map<String, String> getRefreshTokenPostParameters(OauthConfiguration oauthConfiguration) throws Exception {
+        String client_id = EnvironmentService.getEnvironmentMap().get("CLIENT_ID");
+        String client_secret = EnvironmentService.getEnvironmentMap().get("CLIENT_SECRET");
+        String grant_type = EnvironmentService.getEnvironmentMap().get("REFRESH_GRANT_TYPE");
+        String refresh_token = oauthConfiguration.refresh_token;
+        String format = "json";
+        Map<String, String> accessTokenPostParameters = new HashMap<String, String>();
+        accessTokenPostParameters.put( "client_id", client_id );
+        accessTokenPostParameters.put( "client_secret", client_secret );
+        accessTokenPostParameters.put( "grant_type", grant_type );
+        accessTokenPostParameters.put( "refresh_token", refresh_token );
+        accessTokenPostParameters.put( "format", format );
+        return accessTokenPostParameters;
+    }
+
     private static void populateLoggedInParameters(Map<String, Object> attributes, OauthConfiguration oauthConfiguration) {
         attributes.put("loggedInToConnectedApp", true);
         attributes.put("oauthConfigurationId", oauthConfiguration.id);
@@ -112,7 +132,11 @@ public class AdminService {
         if( isLoggedIn() ) {
             OauthConfiguration oauthConfiguration = DatabaseService.getOauthConfigurations().get(0);
             String response = HttpService.postRequest( getAccessTokenURL(), getAccessTokenPostParameters(oauthConfiguration) );
-            System.out.println( " response " + FormatterService.formatJSON( response ) );
+            System.out.println( " access token response " + FormatterService.formatJSON( response ) );
+
+            // try refresh now.
+            response = HttpService.postRequest( getRefreshTokenURL(), getRefreshTokenPostParameters(oauthConfiguration) );
+            System.out.println( " refresh token response " + FormatterService.formatJSON( response ) );
         }
     }
 }
