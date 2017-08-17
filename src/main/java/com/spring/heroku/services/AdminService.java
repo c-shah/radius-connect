@@ -59,6 +59,9 @@ public class AdminService {
         attributes.put("loggedInToConnectedApp", true);
         attributes.put("oauthConfigurationId", oauthConfiguration.id);
         attributes.put("oauthConfigurationCode", oauthConfiguration.code);
+        attributes.put("oauthConfigurationAccessToken", oauthConfiguration.access_token);
+        attributes.put("oauthConfigurationInstanceURL", oauthConfiguration.instance_url);
+        attributes.put("oauthConfigurationInstanceTokenId", oauthConfiguration.token_id);
     }
 
     public static Map<String, Object> processRadiusAdmin(Request request, Response response) throws Exception {
