@@ -1,10 +1,13 @@
 package com.spring.heroku.services;
 
+import com.spring.heroku.OauthConfiguration;
 import spark.Request;
 import spark.Response;
 
+import javax.xml.crypto.Data;
 import java.net.URLEncoder;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class AdminService {
@@ -13,7 +16,11 @@ public class AdminService {
      *  this method will check database if it is logged in.
      * @return
      */
-    private static boolean isLoggedIn() {
+    private static boolean isLoggedIn() throws  Exception {
+        List<OauthConfiguration> oauthConfigurations = DatabaseService.getOauthConfigurations();
+        if( oauthConfigurations.size() > 0 ) {
+            return true;
+        }
         return false;
     }
 
@@ -41,6 +48,11 @@ public class AdminService {
     public static Map<String, Object> processSalesforceAuthCallback(Request request, Response response) throws Exception {
         Map<String, Object> attributes = new HashMap<String, Object>();
         System.out.println(" processSalesforceAuthCallback " + request.queryString() );
+        String code = request.queryParams("code");
+        OauthConfiguration oauthConfiguration = new OauthConfiguration();
+        oauthConfiguration.code = code;
+        DatabaseService.persistOauthConfiguration( oauthConfiguration );
+        attributes.put("loggedInToConnectedApp", true);
         return attributes;
     }
 
