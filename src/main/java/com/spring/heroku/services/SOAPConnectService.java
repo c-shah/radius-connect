@@ -8,6 +8,7 @@ import com.sforce.ws.ConnectorConfig;
 public class SOAPConnectService {
 
     public static void createAccount1(String endPoint, String accessToken ) throws Exception {
+        System.out.println(" endPoint " + endPoint + " accessToken " + accessToken );
         ConnectorConfig config = new ConnectorConfig();
         config.setServiceEndpoint(endPoint);
         config.setSessionId(accessToken);
