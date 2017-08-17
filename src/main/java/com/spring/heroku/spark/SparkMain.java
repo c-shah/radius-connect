@@ -22,7 +22,7 @@ public class SparkMain {
         port( Integer.parseInt( port ) );
 
         get("/hello", (req, res) -> {
-            String output = " hello " + System.getenv("HELLO_MESG")  ;
+            String output = System.getenv("HELLO_MESG")  ;
             output += "<br><br> java version : " + System.getProperty("java.version");
             Map<String, String> env = System.getenv();
             for (String envName : env.keySet()) {
