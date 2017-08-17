@@ -38,8 +38,8 @@ public class AdminService {
         if( isLoggedIn() ) {
             attributes.put("loggedInToConnectedApp", true);
             OauthConfiguration oauthConfiguration = DatabaseService.getOauthConfigurations().get(0);
-            attributes.put("oauthConfiguration.id", oauthConfiguration.id);
-            attributes.put("oauthConfiguration.code", oauthConfiguration.code);
+            attributes.put("oauthConfigurationId", oauthConfiguration.id);
+            attributes.put("oauthConfigurationCode", oauthConfiguration.code);
         } else {
             attributes.put("loggedInToConnectedApp", false);
             attributes.put("salesforceLoginURL", getSalesforceLoginURL() );
@@ -57,8 +57,8 @@ public class AdminService {
         oauthConfiguration = DatabaseService.persistOauthConfiguration( oauthConfiguration );
         System.out.println(" oauthConfiguration persisted : " + oauthConfiguration.id );
         attributes.put("loggedInToConnectedApp", true);
-        attributes.put("oauthConfiguration.id", oauthConfiguration.id);
-        attributes.put("oauthConfiguration.code", oauthConfiguration.code);
+        attributes.put("oauthConfigurationId", oauthConfiguration.id);
+        attributes.put("oauthConfigurationCode", oauthConfiguration.code);
         return attributes;
     }
 

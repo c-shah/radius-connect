@@ -2,7 +2,9 @@
 
     Radius Cloud : Currently Logged In
 
-    Oauth Configurtion Id : ${oauthConfiguration.id}
+    Oauth Configurtion
+        Id   : ${oauthConfigurationId}
+        Code : ${oauthConfigurationCode}
 
 <#else>
 
