@@ -1,7 +1,8 @@
 <#if loggedInToConnectedApp == true>
 
-    Radius Cloud : Already Logged In
+    Radius Cloud : Currently Logged In
 
+    Oauth Configurtion Id : ${oauthConfiguration.id}
 
 <#else>
 

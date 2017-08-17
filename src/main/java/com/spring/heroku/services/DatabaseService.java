@@ -37,7 +37,7 @@ public class DatabaseService {
         }
     }
 
-    public static void persistOauthConfiguration(OauthConfiguration oauthConfiguration) throws Exception {
+    public static OauthConfiguration persistOauthConfiguration(OauthConfiguration oauthConfiguration) throws Exception {
         Connection connection = null;
         try {
             connection = DriverManager.getConnection(EnvironmentService.getEnvironmentMap().get("JDBC_DATABASE_URL"));
@@ -46,6 +46,17 @@ public class DatabaseService {
                 statement.executeUpdate( " delete from oauth_configuration where id = " + oauthConfiguration.id );
             }
             statement.executeUpdate(" insert into oauth_configuration ( code, issued_at, refresh_token, instance_url, signature, access_token  ) values ( '" + oauthConfiguration.code + "', '" + oauthConfiguration.issued_at + "', '" + oauthConfiguration.refresh_token + "', '" + oauthConfiguration.instance_url + "', '" + oauthConfiguration.signature + "','" + oauthConfiguration.access_token + "' ) ");
+            ResultSet resultSet = statement.executeQuery("select * from oauth_configuration where code = '" + oauthConfiguration.code + "' ");
+            while (resultSet != null && resultSet.next()) {
+                oauthConfiguration.id = resultSet.getString("id");
+                oauthConfiguration.code = resultSet.getString("code");
+                oauthConfiguration.issued_at = resultSet.getString("issued_at");
+                oauthConfiguration.refresh_token = resultSet.getString("refresh_token");
+                oauthConfiguration.instance_url = resultSet.getString("instance_url");
+                oauthConfiguration.signature = resultSet.getString("signature");
+                oauthConfiguration.access_token = resultSet.getString("access_token");
+            }
+            return oauthConfiguration;
         } finally {
             if( connection != null ) {
                 connection.close();
@@ -56,7 +67,8 @@ public class DatabaseService {
     public static void main(String[] args) throws Exception {
         System.out.println(" getOauthConfigurations " + getOauthConfigurations() );
         OauthConfiguration oauthConfiguration = new OauthConfiguration();
-        oauthConfiguration.access_token = "access";
-        persistOauthConfiguration(oauthConfiguration);
+        oauthConfiguration.code = "access";
+        OauthConfiguration oauthConfiguration1 = persistOauthConfiguration(oauthConfiguration);
+        System.out.println(" oaut1 " + oauthConfiguration1.id );
     }
 }

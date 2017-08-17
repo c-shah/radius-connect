@@ -51,8 +51,9 @@ public class AdminService {
         String code = request.queryParams("code");
         OauthConfiguration oauthConfiguration = new OauthConfiguration();
         oauthConfiguration.code = code;
-        DatabaseService.persistOauthConfiguration( oauthConfiguration );
+        oauthConfiguration = DatabaseService.persistOauthConfiguration( oauthConfiguration );
         attributes.put("loggedInToConnectedApp", true);
+        attributes.put("oauthConfiguration", oauthConfiguration);
         return attributes;
     }
 
