@@ -21,8 +21,8 @@ public class AdminService {
         String loginURL = EnvironmentService.getEnvironmentMap().get("SALESFORCE_LOGIN_URL");
         String redirectURI = EnvironmentService.getEnvironmentMap().get("REDIRECT_URI");
         String clientId = EnvironmentService.getEnvironmentMap().get("CLIENT_ID");
-        loginURL = loginURL.replace("REDIRECT_URI", URLEncoder.encode(redirectURI) );
-        loginURL = loginURL.replace("clientId", URLEncoder.encode(clientId) );
+        loginURL = loginURL.replace("%REDIRECT_URI%", URLEncoder.encode(redirectURI) );
+        loginURL = loginURL.replace("%CLIENT_ID%", clientId );
         return loginURL;
     }
 
@@ -33,12 +33,14 @@ public class AdminService {
         } else {
             attributes.put("loggedInToConnectedApp", false);
             attributes.put("salesforceLoginURL", getSalesforceLoginURL() );
+            System.out.println(" salesforceLoginURL " + getSalesforceLoginURL()  );
         }
         return attributes;
     }
 
     public static Map<String, Object> processSalesforceAuthCallback(Request request, Response response) throws Exception {
         Map<String, Object> attributes = new HashMap<String, Object>();
+        System.out.println(" processSalesforceAuthCallback " + request.queryString() );
         return attributes;
     }
 

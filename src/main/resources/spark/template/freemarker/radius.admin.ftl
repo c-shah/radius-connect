@@ -5,7 +5,7 @@
 
 <#else>
 
-    Radius Cloud : <a href="${salesforceLoginUrl}">Login</a> to Salesforce
+    Radius Cloud : <a href="${salesforceLoginURL}">Login</a> to Salesforce
 
 </#if>
 
