@@ -1,2 +1,2 @@
 # this is for spark
-web: java -jar target/webauth.jar
+web: java -jar target/radius-connect.jar

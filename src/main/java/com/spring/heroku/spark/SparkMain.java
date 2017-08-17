@@ -5,6 +5,8 @@ import static spark.Spark.*;
 import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
+
+import com.spring.heroku.env.EnvironmentService;
 import spark.ModelAndView;
 import spark.template.freemarker.FreeMarkerEngine;
 import static spark.Spark.get;
@@ -18,11 +20,13 @@ public class SparkMain {
 
     public static void main(String args[]) throws Exception {
 
-        String port = System.getenv("PORT") != null ? System.getenv("PORT") : "8080";
+        Map<String, String> environment = EnvironmentService.getEnvironmentMap();
+
+        String port = environment.get("PORT") != null ? environment.get("PORT") : "8000";
         port( Integer.parseInt( port ) );
 
         get("/hello", (req, res) -> {
-            String output = System.getenv("HELLO_MESG")  ;
+            String output = environment.get("HELLO_MESG")  ;
             output += "<br><br> java version : " + System.getProperty("java.version");
             Map<String, String> env = System.getenv();
             for (String envName : env.keySet()) {
@@ -35,7 +39,7 @@ public class SparkMain {
             System.out.println( Paths.get(".").toAbsolutePath().normalize().toString() );
             Map<String, Object> attributes = new HashMap<>();
             attributes.put("loggedInToConnectedApp", false);
-            attributes.put("salesforceLoginUrl", false);
+            attributes.put("salesforceLoginUrl", "abc");
             return new ModelAndView(attributes, "radius.admin.ftl");
         }, new FreeMarkerEngine());
 

@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
-public class HerokuEnvironmentService {
+public class EnvironmentService {
 
     private static Map<String,String> environmentMap = null;
 
