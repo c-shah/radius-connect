@@ -8,7 +8,9 @@
     <br>
         &nbsp;&nbsp; Code : ${oauthConfigurationCode}
     <br>
-        &nbsp;&nbsp; Token : ${oauthConfigurationAccessToken}
+        &nbsp;&nbsp; Access Token : ${oauthConfigurationAccessToken}
+    <br>
+        &nbsp;&nbsp; Refres Token : ${oauthConfigurationRefreshToken}
     <br>
         &nbsp;&nbsp; Instance URL : ${oauthConfigurationInstanceURL}
     <br>
