@@ -56,6 +56,20 @@
             <artifactId>jackson-databind</artifactId>
             <version>2.9.0</version>
         </dependency>
+        <dependency>
+            <groupId>com.salesforce</groupId>
+            <artifactId>partner</artifactId>
+            <version>1.0</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/partner.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>com.salesforce</groupId>
+            <artifactId>wsc</artifactId>
+            <version>1.0</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/force-wsc-41.0.0-uber.jar</systemPath>
+        </dependency>
     </dependencies>
 
     <build>

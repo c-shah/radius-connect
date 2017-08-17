@@ -1,4 +1,4 @@
 package com.spring.heroku.services;
 
-public class ConnectService {
+public class RestConnectService {
 }

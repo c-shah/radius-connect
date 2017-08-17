@@ -135,8 +135,18 @@ public class AdminService {
             System.out.println( " access token response " + FormatterService.formatJSON( response ) );
 
             // try refresh now.
-            response = HttpService.postRequest( getRefreshTokenURL(), getRefreshTokenPostParameters(oauthConfiguration) );
-            System.out.println( " refresh token response " + FormatterService.formatJSON( response ) );
+            System.out.println(" refresh token " + getRefreshedAccessToken() );
         }
     }
+
+    public static String getRefreshedAccessToken() throws  Exception {
+        if( isLoggedIn() ) {
+            OauthConfiguration oauthConfiguration = DatabaseService.getOauthConfigurations().get(0);
+            String jsonResponseString = HttpService.postRequest( getRefreshTokenURL(), getRefreshTokenPostParameters(oauthConfiguration) );
+            Map<String, Object> jsonMap = FormatterService.formatJSON( jsonResponseString );
+            return (String) jsonMap.get("access_token");
+        }
+        return null;
+    }
+
 }
