@@ -2,11 +2,11 @@ package com.spring.heroku.spark;
 
 import static spark.Spark.*;
 
-import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.spring.heroku.env.EnvironmentService;
+import com.spring.heroku.services.AdminService;
+import com.spring.heroku.services.EnvironmentService;
 import spark.ModelAndView;
 import spark.template.freemarker.FreeMarkerEngine;
 import static spark.Spark.get;
@@ -36,11 +36,12 @@ public class SparkMain {
         });
 
         get("/radius.admin", (request, response) -> {
-            System.out.println( Paths.get(".").toAbsolutePath().normalize().toString() );
-            Map<String, Object> attributes = new HashMap<>();
-            attributes.put("loggedInToConnectedApp", false);
-            attributes.put("salesforceLoginUrl", "abc");
-            return new ModelAndView(attributes, "radius.admin.ftl");
+            return new ModelAndView(AdminService.processRadiusAdmin(request, response), "radius.admin.ftl");
+        }, new FreeMarkerEngine());
+
+
+        get("/salesforce.auth.callback", (request, response) -> {
+            return new ModelAndView(AdminService.processSalesforceAuthCallback(request, response), "radius.admin.ftl");
         }, new FreeMarkerEngine());
 
 
