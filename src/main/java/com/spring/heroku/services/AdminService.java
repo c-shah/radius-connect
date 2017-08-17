@@ -60,6 +60,7 @@ public class AdminService {
         attributes.put("oauthConfigurationId", oauthConfiguration.id);
         attributes.put("oauthConfigurationCode", oauthConfiguration.code);
         attributes.put("oauthConfigurationAccessToken", oauthConfiguration.access_token);
+        attributes.put("oauthConfigurationRefreshToken", oauthConfiguration.refresh_token);
         attributes.put("oauthConfigurationInstanceURL", oauthConfiguration.instance_url);
         attributes.put("oauthConfigurationInstanceTokenId", oauthConfiguration.token_id);
     }
@@ -91,6 +92,7 @@ public class AdminService {
         Map<String, Object> jsonResponse = FormatterService.formatJSON(httpResponse);
         if( !jsonResponse.containsKey("error") ) {
             oauthConfiguration.access_token = (String) jsonResponse.get("access_token");
+            oauthConfiguration.refresh_token = (String) jsonResponse.get("refresh_token");
             oauthConfiguration.signature = (String) jsonResponse.get("signature");
             oauthConfiguration.id_token = (String) jsonResponse.get("id_token");
             oauthConfiguration.instance_url = (String) jsonResponse.get("instance_url");
