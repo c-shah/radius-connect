@@ -16,7 +16,7 @@ public class AdminService {
      *  this method will check database if it is logged in.
      * @return
      */
-    private static boolean isLoggedIn() throws  Exception {
+    public static boolean isLoggedIn() throws  Exception {
         List<OauthConfiguration> oauthConfigurations = DatabaseService.getOauthConfigurations();
         if( oauthConfigurations.size() > 0 ) {
             return true;

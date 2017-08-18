@@ -4,8 +4,17 @@ import com.sforce.soap.partner.Connector;
 import com.sforce.soap.partner.PartnerConnection;
 import com.sforce.soap.partner.sobject.SObject;
 import com.sforce.ws.ConnectorConfig;
+import com.spring.heroku.OauthConfiguration;
 
 public class SOAPConnectService {
+
+    public static void createAccount1() throws Exception {
+        if( AdminService.isLoggedIn() ) {
+            OauthConfiguration oauthConfiguration = DatabaseService.getOauthConfigurations().get(0);
+            String url = oauthConfiguration.instance_url + EnvironmentService.getEnvironmentMap().get("SOAP_ENDPOINT");
+            createAccount1( url, AdminService.getRefreshedAccessToken() );
+        }
+    }
 
     public static void createAccount1(String endPoint, String accessToken ) throws Exception {
         System.out.println(" endPoint " + endPoint + " accessToken " + accessToken );
@@ -33,7 +42,8 @@ public class SOAPConnectService {
     }
 
     public static void main(String args[]) throws Exception {
-        createAccount1("https://dev2ot-dev-ed.my.salesforce.com/services/Soap/u/40.0",AdminService.getRefreshedAccessToken() );
-        createAccount2("dev2@ot.com","Welcome1");
+        //createAccount1("https://dev2ot-dev-ed.my.salesforce.com/services/Soap/u/40.0",AdminService.getRefreshedAccessToken() );
+        //createAccount2("dev2@ot.com","Welcome1");
+        createAccount1();
     }
 }
