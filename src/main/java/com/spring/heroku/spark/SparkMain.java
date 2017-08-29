@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.spring.heroku.services.AdminService;
+import com.spring.heroku.services.ConnectService;
 import com.spring.heroku.services.EnvironmentService;
 import com.spring.heroku.services.SOAPConnectService;
 import spark.ModelAndView;
@@ -45,11 +46,17 @@ public class SparkMain {
             return new ModelAndView(AdminService.processRadiusAdmin(request, response), "radius.admin.ftl");
         }, new FreeMarkerEngine());
 
+        get("/radius.admin.disconnect", (request, response) -> {
+            return new ModelAndView(AdminService.processDisconnect(request, response), "radius.admin.ftl");
+        }, new FreeMarkerEngine());
 
         get("/salesforce.auth.callback", (request, response) -> {
             return new ModelAndView(AdminService.processSalesforceAuthCallback(request, response), "radius.admin.ftl");
         }, new FreeMarkerEngine());
 
+        get("/radius.connect", (request, response) -> {
+            return new ModelAndView(ConnectService.processRadiusConnect(request, response), "radius.connect.ftl");
+        }, new FreeMarkerEngine());
 
     }
 }

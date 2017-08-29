@@ -1,6 +1,6 @@
 package com.spring.heroku.services;
 
-import com.spring.heroku.OauthConfiguration;
+import com.spring.heroku.entity.OauthConfiguration;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -10,6 +10,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DatabaseService {
+
+    public static void deleteAllOAuthConfig() throws Exception {
+        Connection connection = null;
+        try {
+            connection = DriverManager.getConnection(EnvironmentService.getEnvironmentMap().get("JDBC_DATABASE_URL"));
+            Statement statement = connection.createStatement();
+            statement.executeUpdate("delete from oauth_configuration ");
+            System.out.println(" deleteAllOAuthConfig ");
+        } finally {
+            if( connection != null ) {
+                connection.close();
+            }
+        }
+    }
 
     public static List<OauthConfiguration> getOauthConfigurations() throws Exception {
         List<OauthConfiguration> oauthConfigurations = new ArrayList<OauthConfiguration>();

@@ -1,4 +1,4 @@
-package com.spring.heroku;
+package com.spring.heroku.entity;
 
 public class OauthConfiguration {
     public String id;

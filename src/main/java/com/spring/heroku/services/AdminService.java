@@ -1,6 +1,6 @@
 package com.spring.heroku.services;
 
-import com.spring.heroku.OauthConfiguration;
+import com.spring.heroku.entity.OauthConfiguration;
 import spark.Request;
 import spark.Response;
 
@@ -96,6 +96,15 @@ public class AdminService {
             attributes.put("salesforceLoginURL", getSalesforceLoginURL() );
             System.out.println(" salesforceLoginURL " + getSalesforceLoginURL()  );
         }
+        return attributes;
+    }
+
+    public static Map<String, Object> processDisconnect(Request request, Response response) throws  Exception {
+        DatabaseService.deleteAllOAuthConfig();
+        Map<String, Object> attributes = new HashMap<String, Object>();
+        attributes.put("loggedInToConnectedApp", false);
+        attributes.put("salesforceLoginURL", getSalesforceLoginURL() );
+        System.out.println(" salesforceLoginURL " + getSalesforceLoginURL()  );
         return attributes;
     }
 

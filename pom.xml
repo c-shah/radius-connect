@@ -65,6 +65,8 @@
             <artifactId>jackson-databind</artifactId>
             <version>2.9.0</version>
         </dependency>
+
+        <!-- soap api wsc is ootb, partner is from partner wsdl -->
         <dependency>
             <groupId>com.salesforce</groupId>
             <artifactId>wsc</artifactId>
@@ -74,6 +76,12 @@
             <groupId>com.salesforce</groupId>
             <artifactId>partner</artifactId>
             <version>1.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.frejo</groupId>
+            <artifactId>force-rest-api</artifactId>
+            <version>0.0.37</version>
         </dependency>
     </dependencies>
 
