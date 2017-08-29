@@ -16,7 +16,7 @@ public class ConnectService {
         for(String key : request.queryParams() ) {
             queryParamString += "[" + key + "=" + request.queryParams(key) + "]";
         }
-        attributes.put("queryParams", request.queryParams());
+        attributes.put("queryParams", queryParamString);
         return attributes;
     }
 }
