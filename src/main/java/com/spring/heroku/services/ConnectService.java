@@ -12,6 +12,10 @@ public class ConnectService {
         if( AdminService.isLoggedIn() ) {
             attributes.put("loggedInToConnectedApp", true);
         }
+        String queryParamString = "";
+        for(String key : request.queryParams() ) {
+            queryParamString += "[" + key + "=" + request.queryParams(key) + "]";
+        }
         attributes.put("queryParams", request.queryParams());
         return attributes;
     }
