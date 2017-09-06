@@ -7,6 +7,7 @@ import com.force.api.http.Http;
 import com.force.api.http.HttpRequest;
 import com.force.api.http.HttpResponse;
 import com.spring.heroku.entity.Account;
+import com.spring.heroku.entity.Contact;
 import com.spring.heroku.entity.OauthConfiguration;
 
 import java.util.Map;
@@ -56,6 +57,28 @@ public class RestConnectService {
         System.out.println( queryResult.getTotalSize() + "  " + queryResult.getRecords() );
     }
 
+
+    public static void createContact() throws Exception {
+        if (AdminService.isLoggedIn()) {
+            OauthConfiguration oauthConfiguration = DatabaseService.getOauthConfigurations().get(0);
+            String url = oauthConfiguration.instance_url;
+            createContact(url, AdminService.getRefreshedAccessToken());
+        }
+    }
+
+    public static void createContact(String endPoint, String accessToken) throws Exception {
+        ApiSession apiSession = new ApiSession().setAccessToken(accessToken).setApiEndpoint(endPoint);
+        ForceApi api = new ForceApi(apiSession);
+        Contact c = new Contact();
+        c.setFirstName("ChintanR");
+        c.setLastName("ShahR");
+        c.setPhone("2064190242");
+        c.setAccountId("001f4000005czw1");
+        String id = api.createSObject("contact", c);
+        System.out.println(" Contact created : " + id);
+    }
+
+
     public static void createAccount1() throws Exception {
         if (AdminService.isLoggedIn()) {
             OauthConfiguration oauthConfiguration = DatabaseService.getOauthConfigurations().get(0);
@@ -92,6 +115,7 @@ public class RestConnectService {
         //createAccount2("dev2@ot.com","Welcome1");
         //getAccount("0014100000Ih1y3");
         //executeQuery("select id, name from account limit 2");
-        runDuplicateCheck();
+        //runDuplicateCheck();
+        createContact();
     }
 }
