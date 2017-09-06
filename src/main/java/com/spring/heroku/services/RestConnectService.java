@@ -10,7 +10,7 @@ import com.spring.heroku.entity.Account;
 import com.spring.heroku.entity.Contact;
 import com.spring.heroku.entity.OauthConfiguration;
 
-import java.util.Map;
+import java.util.*;
 
 public class RestConnectService {
 
@@ -79,6 +79,78 @@ public class RestConnectService {
     }
 
 
+    public static void createLead() throws Exception {
+        if (AdminService.isLoggedIn()) {
+            OauthConfiguration oauthConfiguration = DatabaseService.getOauthConfigurations().get(0);
+            String url = oauthConfiguration.instance_url;
+            createLead(url, AdminService.getRefreshedAccessToken());
+        }
+    }
+
+    public static void createLead(String endPoint, String accessToken) throws Exception {
+
+        // existing lead = 00Qf40000025EwR
+        // fetch it.
+        // update map
+        // send it back
+
+        ApiSession apiSession = new ApiSession().setAccessToken(accessToken).setApiEndpoint(endPoint);
+        ForceApi api = new ForceApi(apiSession);
+        Map leadOutputMapg = api.getSObject("Lead", "00Qf40000025EwR").as(Map.class);
+        System.out.println(" leadOutputMapg " + leadOutputMapg );
+
+        List<String> fieldsToBeCopied = Arrays.asList("LastName",
+                "FirstName",
+                "Salutation",
+                "Title",
+                "Company",
+                "Street",
+                "City",
+                "State",
+                "PostalCode",
+                "Country",
+                "Phone",
+                "MobilePhone",
+                "Fax",
+                "Email",
+                "Website",
+                "Description",
+                "LeadSource",
+                "Status",
+                "Industry",
+                "Rating",
+                "AnnualRevenue",
+                "NumberOfEmployees",
+                "CleanStatus",
+                "CompanyDunsNumber"
+                );
+
+        Map filteredMap = new HashMap<String, Object>();
+        for(Object key : leadOutputMapg.keySet() ) {
+            if( contains(fieldsToBeCopied, (String) key) ) {
+                filteredMap.put( key, leadOutputMapg.get(key) );
+            }
+        }
+
+        System.out.println( "filtered Map " + filteredMap );
+        filteredMap.put("FirstName","RestFirst");
+        filteredMap.put("LastName","RestLast");
+
+        String id = api.createSObject("Lead", filteredMap);
+        System.out.println(" new lead " + id );
+    }
+
+
+    public static boolean contains(List<String> fields, String field) {
+        for(String f : fields ) {
+            if( f.equalsIgnoreCase(field) ) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
     public static void createAccount1() throws Exception {
         if (AdminService.isLoggedIn()) {
             OauthConfiguration oauthConfiguration = DatabaseService.getOauthConfigurations().get(0);
@@ -116,6 +188,9 @@ public class RestConnectService {
         //getAccount("0014100000Ih1y3");
         //executeQuery("select id, name from account limit 2");
         //runDuplicateCheck();
-        createContact();
+
+
+        // createContact();  for Gayk
+        createLead();
     }
 }
