@@ -21,6 +21,8 @@ queryParams ${queryParams}
 <br/>
 <a href="javascript:void(0);" onclick="refresh4();"> REFRESH4 </a>
 <br/>
+<a href="javascript:void(0);" onclick="refresh5();"> REFRESH5 </a>
+<br/>
 
 
 <script>
@@ -38,6 +40,14 @@ queryParams ${queryParams}
 
     function refresh4() {
         window.parent.location.href =  window.parent.location.href;
+    }
+
+    function refresh5() {
+        var url = (window.location != window.parent.location)
+                ? document.referrer
+                : document.location.href;
+        alert( url );
+        window.parent.location.href =  url;
     }
 
 </script>
