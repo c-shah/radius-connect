@@ -14,8 +14,13 @@
 queryParams ${queryParams}
 
 <a href="javascript:void(0);" onclick="refresh();"> REFRESH </a>
+<br/>
 <a href="javascript:void(0);" onclick="refresh2();"> REFRESH2 </a>
+<br/>
 <a href="javascript:void(0);" onclick="refresh3();"> REFRESH3 </a>
+<br/>
+<a href="javascript:void(0);" onclick="refresh4();"> REFRESH4 </a>
+<br/>
 
 
 <script>
@@ -30,6 +35,11 @@ queryParams ${queryParams}
     function refresh3() {
         parent.location.href=parent.location.href
     }
+
+    function refresh4() {
+        window.parent.location.href =  window.parent.location.href;
+    }
+
 </script>
 
 <br>
