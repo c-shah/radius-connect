@@ -20,8 +20,10 @@ public class RestConnectService {
             String input = "{ \"duplicateCheckRequests\" : [ { \"query\": \"select count() from account limit 1\" }, { \"query\": \"select count() from lead limit 1\" } ] }";
             ObjectMapper mapper = new ObjectMapper();
             JsonNode actualObj = mapper.readTree(input);
-            ResourceRepresentation response = restRequest(oauthConfiguration.instance_url + "/services/apexrest/DuplicateCheckService", "POST", AdminService.getRefreshedAccessToken(), actualObj );
-            System.out.println(" response " + response.asMap() );
+            for( int i=0; i<10; i++) {
+                ResourceRepresentation response = restRequest(oauthConfiguration.instance_url + "/services/apexrest/DuplicateCheckService", "POST", AdminService.getRefreshedAccessToken(), actualObj );
+                System.out.println(" response " + response.asMap() );
+            }
         }
     }
 
@@ -187,10 +189,12 @@ public class RestConnectService {
         //createAccount2("dev2@ot.com","Welcome1");
         //getAccount("0014100000Ih1y3");
         //executeQuery("select id, name from account limit 2");
-        //runDuplicateCheck();
+        for(int i=0;i<1000;i++) {
+            runDuplicateCheck();
+        }
 
 
         // createContact();  for Gayk
-        createLead();
+        //createLead();
     }
 }

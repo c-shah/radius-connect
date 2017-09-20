@@ -13,6 +13,12 @@
 
 queryParams ${queryParams}
 
+<a href="javascript:void(0);" onclick="refresh();">
+
+<script>
+    parent.location.reload();
+</script>
+
 <br>
 <br>
 <br>

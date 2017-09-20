@@ -42,8 +42,10 @@ public class SOAPConnectService {
     }
 
     public static void main(String args[]) throws Exception {
-        createAccount1("https://dev2ot-dev-ed.my.salesforce.com/services/Soap/u/40.0",AdminService.getRefreshedAccessToken() );
+        //createAccount1("https://dev2ot-dev-ed.my.salesforce.com/services/Soap/u/40.0",AdminService.getRefreshedAccessToken() );
         //createAccount2("dev2@ot.com","Welcome1");
         //createAccount1();
+
+        createAccount1("https://dev2ot-dev-ed.my.salesforce.com/services/Soap/u/40.0",AdminService.getRefreshedAccessToken() );
     }
 }
