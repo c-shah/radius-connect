@@ -13,7 +13,7 @@
 
 queryParams ${queryParams}
 
-<a href="javascript:void(0);" onclick="refresh();">
+<a href="javascript:void(0);" onclick="refresh();"> REFRESH </a>
 
 <script>
     function refresh() {
