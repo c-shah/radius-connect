@@ -37,26 +37,37 @@ public class SparkMain {
             return output;
         });
 
-        get("/createAccount", (req, res) -> {
+        get("/createAccount", (request, response) -> {
+            response.header("Access-Control-Allow-Origin","*");
+            response.header("Access-Control-Request-Method", "GET, POST, PUT");
             SOAPConnectService.createAccount1();
             return "created.";
         });
 
         get("/radius.admin", (request, response) -> {
+            response.header("Access-Control-Allow-Origin","*");
+            response.header("Access-Control-Request-Method", "GET, POST, PUT");
             return new ModelAndView(AdminService.processRadiusAdmin(request, response), "radius.admin.ftl");
         }, new FreeMarkerEngine());
 
         get("/radius.admin.disconnect", (request, response) -> {
+            response.header("Access-Control-Allow-Origin","*");
+            response.header("Access-Control-Request-Method", "GET, POST, PUT");
             return new ModelAndView(AdminService.processDisconnect(request, response), "radius.admin.ftl");
         }, new FreeMarkerEngine());
 
         get("/salesforce.auth.callback", (request, response) -> {
+            response.header("Access-Control-Allow-Origin","*");
+            response.header("Access-Control-Request-Method", "GET, POST, PUT");
             return new ModelAndView(AdminService.processSalesforceAuthCallback(request, response), "radius.admin.ftl");
         }, new FreeMarkerEngine());
 
         get("/radius.connect", (request, response) -> {
+            response.header("Access-Control-Allow-Origin","*");
+            response.header("Access-Control-Request-Method", "GET, POST, PUT");
             return new ModelAndView(ConnectService.processRadiusConnect(request, response), "radius.connect.ftl");
         }, new FreeMarkerEngine());
 
     }
+
 }
