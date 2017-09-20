@@ -31,7 +31,7 @@ queryParams ${queryParams}
     }
 
     function refresh2() {
-        window.parent.location.href = "http://www.stackoverflow.com";
+        window.parent.location.href = "https://na59.salesforce.com/001f4000005anWk";
     }
 
     function refresh3() {
