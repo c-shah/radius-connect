@@ -14,10 +14,21 @@
 queryParams ${queryParams}
 
 <a href="javascript:void(0);" onclick="refresh();"> REFRESH </a>
+<a href="javascript:void(0);" onclick="refresh2();"> REFRESH2 </a>
+<a href="javascript:void(0);" onclick="refresh3();"> REFRESH3 </a>
+
 
 <script>
     function refresh() {
         parent.location.reload();
+    }
+
+    function refresh2() {
+        window.parent.location.href = "http://www.stackoverflow.com";
+    }
+
+    function refresh3() {
+        parent.location.href=parent.location.href
     }
 </script>
 
