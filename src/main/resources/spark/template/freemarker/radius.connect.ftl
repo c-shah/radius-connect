@@ -23,6 +23,8 @@ queryParams ${queryParams}
 <br/>
 <a href="javascript:void(0);" onclick="refresh5();"> REFRESH5 </a>
 <br/>
+<a href="javascript:void(0);" onclick="refresh6();"> REFRESH6 </a>
+<br/>
 
 
 <script>
@@ -48,6 +50,10 @@ queryParams ${queryParams}
                 : document.location.href;
         alert( url );
         window.parent.location.href =  url;
+    }
+
+    function refresh6() {
+        window.opener.method1();
     }
 
 </script>
