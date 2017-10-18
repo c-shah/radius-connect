@@ -1,3 +1,6 @@
+<link rel='stylesheet' href='/css/test.css'>
+<script src="/js/test.js"></script>
+
 <br>
     Name : Chintan Shah
 <br>
@@ -62,3 +65,6 @@ queryParams ${queryParams}
 <br>
 <br>
 <br>
+
+
+<div class="my"> MY1 </div>
