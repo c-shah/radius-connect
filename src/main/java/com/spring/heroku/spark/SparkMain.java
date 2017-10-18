@@ -26,10 +26,10 @@ public class SparkMain {
 
         String port = environment.get("PORT") != null ? environment.get("PORT") : "8000";
         port( Integer.parseInt( port ) );
+        staticFiles.location("/static");
 
         before((request, response) -> {
             System.out.println(" before filter ");
-            staticFiles.location("/static");
         });
 
         after((request, response) -> {
